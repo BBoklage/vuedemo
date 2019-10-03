@@ -12774,29 +12774,28 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
 //         lastName: ''
 //     }
 // });
-
-var vforApp = new Vue({
-  el: '#vfor-app',
-  data: {
-    songs: [{
-      "tracks": "",
-      "artists": ""
-    }],
-    newTrack: "",
-    newArtist: ""
-  } // methods:{
-  //     submitSong(song){
-  //         this.songs.push(song);
-  //     },
-  //     removeSong(){
-  //         this.songs.pop();
-  //     },
-  //     emptyList(){
-  //         this.songs = [];
-  //     },
-  // },
-
-}); // const eventsApp = new Vue({
+// const vforApp = new Vue({
+//     el: '#vfor-app',
+//     data: {
+//         songs: [
+//             {"tracks":"", "artists":""},
+//         ],
+//         newTrack:"",
+//         newArtist:"",
+//     },
+// methods:{
+//     submitSong(song){
+//         this.songs.push(song);
+//     },
+//     removeSong(){
+//         this.songs.pop();
+//     },
+//     emptyList(){
+//         this.songs = [];
+//     },
+// },
+// });
+// const eventsApp = new Vue({
 //     el: '#event-app',
 //     data: {
 //     },
@@ -12809,6 +12808,41 @@ var vforApp = new Vue({
 //         }
 //     }
 // });
+
+Vue.component('playlist', {
+  template: "\n    <div class=\"text-center\">\n        Title: <input v-model =\"newSong.title\">\n        Artist: <input v-model =\"newSong.artist\">\n        <button class=\"btn btn-primary\" @click=\"addSong(newSong)\">add song</button>\n        \n        <ul class=\"list-group text-center\">\n            <li class=\"list-group-item mt-1 \" v-for='(song, index) in songs' :key='song.title'>{{song.title}}<br><small>{{song.artist}}</small><br>\n            <button class=\"btn btn-danger\" @click=\"deleteSong(index)\">Remove Song</button>\n            <button class=\"btn\" :class=\"{'btn-info' : !song.favorited, 'btn-warning': song.favorited }\" @click=\"favoriteSong(index)\">Favorite Song</button></li>\n        </ul>\n    \n        \n    </div>\n\n    ",
+  methods: {
+    addSong: function addSong() {
+      this.songs.push({
+        title: this.newSong.title,
+        artist: this.newSong.artist
+      });
+    },
+    deleteSong: function deleteSong(index) {
+      this.songs.splice(index, 1);
+    },
+    favoriteSong: function favoriteSong(index) {
+      this.songs[index].favorited = !this.songs[index].favorited;
+    }
+  },
+  data: function data() {
+    return {
+      newSong: {
+        title: '',
+        artist: '',
+        favorited: false
+      },
+      songs: [{
+        title: "bababa",
+        artist: "Blaine",
+        favorited: false
+      }]
+    };
+  }
+});
+new Vue({
+  el: '#playlist'
+});
 
 /***/ }),
 

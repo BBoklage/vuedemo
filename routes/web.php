@@ -24,4 +24,7 @@ Route::get('vfor', function () {
 Route::get('events', function () {
     return view('events');
 });
+Route::get('playlist', function () {
+    return view('playlist');
+});
 
